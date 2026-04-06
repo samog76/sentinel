@@ -26,6 +26,19 @@ export function getClinicalRoleLabel(role: ClinicalRole | undefined): string {
   return CLINICAL_ROLE_LABELS[role];
 }
 
+export type RotationType =
+  | 'DAY'
+  | 'EVENING'
+  | 'NIGHT'
+  | 'ON_CALL';
+
+export const ROTATION_LABELS: Record<RotationType, string> = {
+  DAY: 'Day Shift',
+  EVENING: 'Evening Shift',
+  NIGHT: 'Night Shift',
+  ON_CALL: 'On-Call',
+};
+
 export interface User {
   id?: string;
   email: string;
@@ -50,9 +63,11 @@ interface AuthContextType {
   isAuthenticated: boolean;
   isOnboarding: boolean;
   baselineData: BaselineData | null;
+  checkInRotation: RotationType | null;
   setUser: (user: User | null) => void;
   setIsOnboarding: (value: boolean) => void;
   setBaselineData: (data: BaselineData) => void;
+  setCheckInRotation: (rotation: RotationType | null) => void;
   logout: () => void;
 }
 
@@ -62,6 +77,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUserState] = useState<User | null>(null);
   const [isOnboarding, setIsOnboardingState] = useState(false);
   const [baselineData, setBaselineData] = useState<BaselineData | null>(null);
+  const [checkInRotation, setCheckInRotationState] = useState<RotationType | null>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -116,6 +132,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUserState(null);
     setIsOnboardingState(false);
     setBaselineData(null);
+    setCheckInRotationState(null);
     if (typeof window !== 'undefined') {
       localStorage.removeItem(CURRENT_USER_STORAGE_KEY);
       localStorage.setItem(ONBOARDING_STORAGE_KEY, 'false');
@@ -127,9 +144,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     isAuthenticated: user !== null,
     isOnboarding,
     baselineData,
+    checkInRotation,
     setUser,
     setIsOnboarding,
     setBaselineData,
+    setCheckInRotation: setCheckInRotationState,
     logout,
   };
 
