@@ -6,6 +6,26 @@ const USERS_STORAGE_KEY = 'sentinelUsers';
 const CURRENT_USER_STORAGE_KEY = 'sentinelCurrentUser';
 const ONBOARDING_STORAGE_KEY = 'sentinelIsOnboarding';
 
+export type ClinicalRole =
+  | 'HOUSE_OFFICER'
+  | 'MEDICAL_OFFICER'
+  | 'RESIDENT_JUNIOR'
+  | 'RESIDENT_SENIOR'
+  | 'CONSULTANT';
+
+export const CLINICAL_ROLE_LABELS: Record<ClinicalRole, string> = {
+  HOUSE_OFFICER: 'House Officer',
+  MEDICAL_OFFICER: 'Medical Officer',
+  RESIDENT_JUNIOR: 'Resident (Junior)',
+  RESIDENT_SENIOR: 'Resident (Senior)',
+  CONSULTANT: 'Consultant',
+};
+
+export function getClinicalRoleLabel(role: ClinicalRole | undefined): string {
+  if (!role || !(role in CLINICAL_ROLE_LABELS)) return 'Clinician';
+  return CLINICAL_ROLE_LABELS[role];
+}
+
 export interface User {
   id?: string;
   email: string;
@@ -13,7 +33,7 @@ export interface User {
   staffId: string;
   department: string;
   hospital: string;
-  role: 'doctor' | 'supervisor';
+  clinicalRole?: ClinicalRole;
   password: string;
 }
 

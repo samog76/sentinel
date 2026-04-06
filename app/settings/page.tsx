@@ -1,6 +1,6 @@
 'use client';
 
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth, getClinicalRoleLabel } from '@/contexts/AuthContext';
 import { MainLayout } from '@/components/layouts/MainLayout';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -82,7 +82,7 @@ export default function SettingsPage() {
               <label className="text-sm font-semibold text-foreground">Role</label>
               <input
                 type="text"
-                defaultValue={user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+                defaultValue={getClinicalRoleLabel(user.clinicalRole)}
                 className="w-full px-4 py-2 bg-input border border-border rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-primary transition-smooth"
                 readOnly
               />
