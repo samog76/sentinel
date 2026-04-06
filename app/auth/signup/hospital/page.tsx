@@ -19,7 +19,7 @@ export default function SignupHospitalPage() {
       ...existingData,
       hospital: hospital.trim(),
     }));
-    router.push('/auth/signup/password');
+    router.push('/auth/signup/role');
   };
 
   const handleBack = () => {
@@ -29,7 +29,7 @@ export default function SignupHospitalPage() {
   return (
     <OnboardingLayout
       currentStep={4}
-      totalSteps={5}
+      totalSteps={6}
       onBack={handleBack}
       heroImage="/hospital.png"
       heroImageAlt="Hospital onboarding"

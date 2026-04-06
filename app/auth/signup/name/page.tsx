@@ -28,7 +28,7 @@ export default function SignupNamePage() {
   return (
     <OnboardingLayout
       currentStep={1}
-      totalSteps={5}
+      totalSteps={6}
       onBack={handleBack}
       heroImage="/name.png"
       heroImageAlt="Name onboarding"
