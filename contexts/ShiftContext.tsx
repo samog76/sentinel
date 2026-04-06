@@ -9,6 +9,8 @@ import React, {
   ReactNode,
 } from 'react';
 
+import { type RotationType } from '@/contexts/AuthContext';
+
 /* ─── Types ───────────────────────────────────────────── */
 
 export interface TestResult {
@@ -34,6 +36,7 @@ export interface CheckIn {
   memoryScore: number;
   fatigueScore: number;
   status: 'sharp' | 'tired' | 'critical' | 'flagged' | 'review';
+  rotation?: RotationType;
   deviations: {
     reaction: number;
     typing: number;
@@ -96,6 +99,7 @@ export interface ShiftActions {
     wpm: number;
     accuracy: number;
     memoryScore: number;
+    rotation?: RotationType;
     integrityFlags: { reaction: boolean; typing: boolean; memory: boolean };
     reactionRounds?: number[];
     keystrokeVariance?: number;
@@ -313,6 +317,7 @@ export function ShiftProvider({ children }: { children: ReactNode }) {
       wpm: number;
       accuracy: number;
       memoryScore: number;
+      rotation?: RotationType;
       integrityFlags: { reaction: boolean; typing: boolean; memory: boolean };
       reactionRounds?: number[];
       keystrokeVariance?: number;
@@ -345,6 +350,7 @@ export function ShiftProvider({ children }: { children: ReactNode }) {
         memoryScore: result.memoryScore,
         fatigueScore,
         status,
+        rotation: result.rotation,
         deviations: {
           reaction: Math.round(reactionDev * 10) / 10,
           typing: Math.round(wpmDev * 10) / 10,

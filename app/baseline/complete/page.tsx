@@ -7,7 +7,7 @@ import { useShift, type BaselineData, type CheckIn } from '@/contexts/ShiftConte
 
 export default function BaselineCompletePage() {
   const router = useRouter();
-  const { baselineData, setIsOnboarding } = useAuth();
+  const { baselineData, setIsOnboarding, checkInRotation, setCheckInRotation } = useAuth();
   const shift = useShift();
   const [isAnimating, setIsAnimating] = useState(false);
   const [processedCheckIn, setProcessedCheckIn] = useState<CheckIn | null>(null);
@@ -40,24 +40,28 @@ export default function BaselineCompletePage() {
           wpm: bd.typingWPM ?? 50,
           accuracy: bd.typingAccuracy ?? 90,
           memoryScore: bd.memoryScore ?? 3,
+          rotation: checkInRotation ?? undefined,
           integrityFlags,
           reactionRounds: bd._reactionRounds,
           keystrokeVariance: bd._keystrokeVariance,
           memoryResponseTimes: bd._memoryResponseTimes,
         });
         setProcessedCheckIn(checkIn);
+        setCheckInRotation(null);
       } else {
         const checkIn = shift.addCheckIn({
           reactionTime: bd.reactionTime ?? 300,
           wpm: bd.typingWPM ?? 50,
           accuracy: bd.typingAccuracy ?? 90,
           memoryScore: bd.memoryScore ?? 3,
+          rotation: checkInRotation ?? undefined,
           integrityFlags,
           reactionRounds: bd._reactionRounds,
           keystrokeVariance: bd._keystrokeVariance,
           memoryResponseTimes: bd._memoryResponseTimes,
         });
         setProcessedCheckIn(checkIn);
+        setCheckInRotation(null);
       }
     } else {
       // This is a baseline — save it
