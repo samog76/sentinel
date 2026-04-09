@@ -59,7 +59,7 @@ export default function SignupDepartmentPage() {
             Sign up
           </p>
           <h1 className="max-w-[13ch] text-[clamp(1.35rem,3.3vw,2.1rem)] font-semibold leading-[1.08] tracking-[-0.025em] text-white text-balance">
-            Which department?
+            Which rotation?
           </h1>
           <p className="max-w-md text-[11px] leading-5 text-white/60 sm:text-xs sm:leading-5 lg:text-sm lg:leading-6">
             Choose the rotation that best matches your current role.
