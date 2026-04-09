@@ -27,16 +27,24 @@ export function getClinicalRoleLabel(role: ClinicalRole | undefined): string {
 }
 
 export type RotationType =
-  | 'DAY'
-  | 'EVENING'
-  | 'NIGHT'
-  | 'ON_CALL';
+  | 'EMERGENCY'
+  | 'ICU'
+  | 'SURGERY'
+  | 'INTERNAL_MEDICINE'
+  | 'OBSTETRICS_GYNECOLOGY'
+  | 'PEDIATRICS'
+  | 'ANESTHESIOLOGY'
+  | 'OTHER';
 
 export const ROTATION_LABELS: Record<RotationType, string> = {
-  DAY: 'Day Shift',
-  EVENING: 'Evening Shift',
-  NIGHT: 'Night Shift',
-  ON_CALL: 'On-Call',
+  EMERGENCY: 'Emergency',
+  ICU: 'ICU',
+  SURGERY: 'Surgery',
+  INTERNAL_MEDICINE: 'Internal Medicine',
+  OBSTETRICS_GYNECOLOGY: 'Obstetrics & Gynecology',
+  PEDIATRICS: 'Pediatrics',
+  ANESTHESIOLOGY: 'Anesthesiology',
+  OTHER: 'Other',
 };
 
 export interface User {
