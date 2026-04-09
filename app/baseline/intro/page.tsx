@@ -86,7 +86,7 @@ export default function BaselineIntroPage() {
                   htmlFor="rotation-select"
                   className="block text-xs font-medium uppercase tracking-[0.18em] text-white/45"
                 >
-                  Select your current rotation for the day
+                  Select department to select rotation
                 </label>
                 <Select
                   value={selectedRotation}
@@ -96,7 +96,7 @@ export default function BaselineIntroPage() {
                     id="rotation-select"
                     className="w-full border-white/15 bg-white/5 text-white data-[placeholder]:text-white/35 hover:bg-white/10 focus-visible:border-primary/60 focus-visible:ring-primary/20"
                   >
-                    <SelectValue placeholder="Select rotation…" />
+                    <SelectValue placeholder="Select department…" />
                   </SelectTrigger>
                   <SelectContent>
                     {ROTATION_OPTIONS.map(([value, label]) => (
