@@ -8,10 +8,10 @@ const DEPARTMENTS = [
   'Emergency',
   'Surgery',
   'ICU',
+  'Internal Medicine',
+  'Obstetrics & Gynecology',
   'Pediatrics',
-  'General',
-  'Radiology',
-  'Oncology',
+  'Anesthesiology',
   'Other',
 ];
 
@@ -23,13 +23,13 @@ export default function SignupDepartmentPage() {
 
   const handleContinue = () => {
     if (!selected) {
-      setError('Please select a department');
+      setError('Please select a rotation');
       return;
     }
 
     const resolvedDepartment = selected === 'Other' ? customDepartment.trim() : selected;
     if (!resolvedDepartment) {
-      setError('Please enter your department');
+      setError('Please enter your rotation');
       return;
     }
 
@@ -62,7 +62,7 @@ export default function SignupDepartmentPage() {
             Which department?
           </h1>
           <p className="max-w-md text-[11px] leading-5 text-white/60 sm:text-xs sm:leading-5 lg:text-sm lg:leading-6">
-            Choose the department that best matches your current role.
+            Choose the rotation that best matches your current role.
           </p>
         </div>
 
@@ -105,7 +105,7 @@ export default function SignupDepartmentPage() {
                     setCustomDepartment(e.target.value);
                     setError('');
                   }}
-                  placeholder="Type your department"
+                  placeholder="Type your rotation"
                   className="w-full border-0 bg-transparent px-0 py-1 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-0"
                   autoFocus
                 />
