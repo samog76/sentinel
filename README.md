@@ -40,6 +40,20 @@ this will boot up the local dev server on port 3000. navigate to `http://localho
 * recharts for timeline data visualizations
 * date-fns for contextual localized timestamps
 
+## clinician roles
+
+during signup, users select their clinical role from the following options:
+
+| internal value | display label |
+|---|---|
+| `HOUSE_OFFICER` | House Officer |
+| `MEDICAL_OFFICER` | Medical Officer |
+| `RESIDENT_JUNIOR` | Resident (Junior) |
+| `RESIDENT_SENIOR` | Resident (Senior) |
+| `CONSULTANT` | Consultant |
+
+the role is stored as the `clinicalRole` field on the user object and displayed in the profile and settings pages. existing accounts without a role stored will show `Clinician` as the default label.
+
 ## deployment
 
 to build for production environments with turbopack integration:

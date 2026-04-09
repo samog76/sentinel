@@ -1,6 +1,6 @@
 'use client';
 
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth, getClinicalRoleLabel } from '@/contexts/AuthContext';
 import { MainLayout } from '@/components/layouts/MainLayout';
 import { useShift } from '@/contexts/ShiftContext';
 import { useRouter } from 'next/navigation';
@@ -74,7 +74,7 @@ export default function ProfilePage() {
                 {user.name ?? 'Dr. Unknown'}
               </h2>
               <p className="text-sm text-slate-500 dark:text-white/50">
-                {user.role === 'doctor' ? 'Physician' : 'Supervisor'} &mdash; {user.department ?? 'General Medicine'}
+                {getClinicalRoleLabel(user.clinicalRole)} &mdash; {user.department ?? 'General Medicine'}
               </p>
               <p className="mt-1 text-xs text-slate-400 dark:text-white/35">
                 {user.hospital ?? 'Lagos University Teaching Hospital'} &bull; {user.staffId ?? 'STAFF-1024'}

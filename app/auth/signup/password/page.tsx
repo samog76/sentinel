@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth, type User } from '@/contexts/AuthContext';
+import { useAuth, type User, type ClinicalRole } from '@/contexts/AuthContext';
 import { OnboardingLayout } from '@/components/layouts/OnboardingLayout';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { ViewIcon, ViewOffIcon } from '@hugeicons/core-free-icons';
@@ -61,7 +61,7 @@ export default function SignupPasswordPage() {
         staffId: signupData.staffId,
         department: signupData.department,
         hospital: signupData.hospital,
-        role: 'doctor',
+        clinicalRole: signupData.clinicalRole as ClinicalRole | undefined,
         password,
       };
 
@@ -75,13 +75,13 @@ export default function SignupPasswordPage() {
   };
 
   const handleBack = () => {
-    router.push('/auth/signup/hospital');
+    router.push('/auth/signup/role');
   };
 
   return (
     <OnboardingLayout
-      currentStep={5}
-      totalSteps={5}
+      currentStep={6}
+      totalSteps={6}
       onBack={handleBack}
       heroImage="/password.png"
       heroImageAlt="Signup credentials"

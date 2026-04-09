@@ -1,22 +1,44 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import Image from 'next/image';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth, type RotationType, ROTATION_LABELS } from '@/contexts/AuthContext';
 import { useShift } from '@/contexts/ShiftContext';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+
+const ROTATION_OPTIONS = Object.entries(ROTATION_LABELS) as [RotationType, string][];
 
 export default function BaselineIntroPage() {
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, setCheckInRotation } = useAuth();
   const { isShiftActive, baseline } = useShift();
   const firstName = user?.name?.trim().split(/\s+/)[0] || 'there';
 
   // Determine if this is a baseline or a check-in
   const isCheckIn = isShiftActive && baseline !== null;
 
+  const [selectedRotation, setSelectedRotation] = useState<RotationType | ''>('');
+
+  const handleRotationChange = (val: string) => {
+    const match = ROTATION_OPTIONS.find(([key]) => key === val);
+    if (match) setSelectedRotation(match[0]);
+  };
+
   const handleStart = () => {
+    if (isCheckIn && selectedRotation !== '') {
+      setCheckInRotation(selectedRotation);
+    }
     router.push('/baseline/test/reaction');
   };
+
+  const canBegin = !isCheckIn || selectedRotation !== '';
 
   return (
     <div className="h-dvh overflow-hidden bg-[#0A0F1E] text-white">
@@ -58,10 +80,40 @@ export default function BaselineIntroPage() {
               </p>
             </div>
 
+            {isCheckIn && (
+              <div className="mt-5 space-y-1.5">
+                <label
+                  htmlFor="rotation-select"
+                  className="block text-xs font-medium uppercase tracking-[0.18em] text-white/45"
+                >
+                  Select your current rotation for the day
+                </label>
+                <Select
+                  value={selectedRotation}
+                  onValueChange={handleRotationChange}
+                >
+                  <SelectTrigger
+                    id="rotation-select"
+                    className="w-full border-white/15 bg-white/5 text-white data-[placeholder]:text-white/35 hover:bg-white/10 focus-visible:border-primary/60 focus-visible:ring-primary/20"
+                  >
+                    <SelectValue placeholder="Select rotation…" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {ROTATION_OPTIONS.map(([value, label]) => (
+                      <SelectItem key={value} value={value}>
+                        {label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
+
             <div className="mt-6">
               <button
                 onClick={handleStart}
-                className="w-full rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition-smooth hover:opacity-95 sm:w-auto sm:min-w-48"
+                disabled={!canBegin}
+                className="w-full rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition-smooth hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto sm:min-w-48"
               >
                 begin
               </button>
